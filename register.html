@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register — RestroGo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/base.css"/>
+  <style>
+    body { background:#07070f; display:flex; align-items:flex-start; justify-content:center; min-height:100vh; padding:40px 20px; }
+    .auth-wrap { width:100%; max-width:520px; }
+    .auth-logo { text-align:center; margin-bottom:32px; display:flex; align-items:center; justify-content:center; gap:10px; }
+    .auth-logo span:first-child { font-size:32px; }
+    .auth-logo span:last-child  { font-size:22px; font-weight:800; color:#f0f0fa; }
+    .auth-card { background:#111120; border:1px solid rgba(255,255,255,0.08); border-radius:20px; padding:36px 32px; }
+    .auth-card h1 { font-size:24px; font-weight:800; margin-bottom:6px; }
+    .auth-card > p { font-size:14px; color:#7878a0; margin-bottom:28px; }
+    .auth-footer { text-align:center; margin-top:20px; font-size:14px; color:#7878a0; }
+    .auth-footer a { color:#a5a0ff; font-weight:600; }
+    .form-group { margin-bottom:16px; }
+    .form-group label { display:block; font-size:13px; font-weight:600; color:#7878a0; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:7px; }
+    .form-input {
+      width:100%; padding:12px 16px; border-radius:10px;
+      background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08);
+      color:#f0f0fa; font-size:15px; outline:none; transition:border-color 0.2s;
+    }
+    .form-input:focus { border-color:#6c63ff; }
+    .form-input.error { border-color:#ef4444; }
+    .form-error { font-size:12px; color:#ef4444; min-height:16px; margin-top:4px; }
+    .form-row-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .btn-auth {
+      width:100%; padding:14px; border-radius:50px; border:none;
+      background:#6c63ff; color:#fff; font-size:16px; font-weight:700;
+      cursor:pointer; transition:0.2s; margin-top:8px;
+    }
+    .btn-auth:hover { background:#5a52d5; transform:translateY(-1px); }
+    .btn-auth:disabled { opacity:0.5; pointer-events:none; }
+    .step-indicator { display:flex; gap:8px; margin-bottom:24px; }
+    .step { flex:1; height:4px; border-radius:2px; background:rgba(255,255,255,0.1); transition:background 0.3s; }
+    .step.active { background:#6c63ff; }
+    .step.done   { background:#22c55e; }
+    .business-type-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:4px; }
+    .biz-type-card {
+      background:rgba(255,255,255,0.04); border:2px solid rgba(255,255,255,0.08);
+      border-radius:12px; padding:14px; text-align:center; cursor:pointer;
+      transition:0.2s;
+    }
+    .biz-type-card:hover  { border-color:rgba(108,99,255,0.4); background:rgba(108,99,255,0.08); }
+    .biz-type-card.selected { border-color:#6c63ff; background:rgba(108,99,255,0.15); }
+    .biz-type-icon  { font-size:28px; margin-bottom:6px; }
+    .biz-type-label { font-size:12px; font-weight:700; color:#ddd; }
+    .trial-info {
+      background:rgba(34,197,94,0.08); border:1px solid rgba(34,197,94,0.2);
+      border-radius:12px; padding:14px 16px; margin-bottom:20px; font-size:13px;
+    }
+    .trial-info strong { color:#22c55e; }
+    .section-divider { font-size:13px; font-weight:700; color:#7878a0; text-transform:uppercase; letter-spacing:1px; margin:20px 0 14px; padding-bottom:8px; border-bottom:1px solid rgba(255,255,255,0.06); }
+
+    @media(max-width:480px) { .form-row-2 { grid-template-columns:1fr; } .business-type-grid { grid-template-columns:1fr 1fr; } }
+  </style>
+</head>
+<body>
+
+<div class="auth-wrap">
+  <div class="auth-logo">
+    <span>🍽️</span><span>RestroGo</span>
+  </div>
+
+  <div class="auth-card">
+    <h1>Start your free trial</h1>
+    <p>Get your restaurant online in under 5 minutes. No credit card required.</p>
+
+    <div class="trial-info">
+      <strong>✅ 14-day free trial</strong> — Full access to all features. No credit card, cancel anytime.
+    </div>
+
+    <!-- Step Indicators -->
+    <div class="step-indicator">
+      <div class="step active" id="step1ind"></div>
+      <div class="step"        id="step2ind"></div>
+      <div class="step"        id="step3ind"></div>
+    </div>
+
+    <!-- STEP 1: Business Type -->
+    <div id="regStep1">
+      <div class="section-divider">Step 1 — What type of food business?</div>
+      <div class="business-type-grid" id="bizTypeGrid">
+        <div class="biz-type-card" data-type="fine-dining" onclick="selectBizType(this,'fine-dining')">
+          <div class="biz-type-icon">🍽️</div>
+          <div class="biz-type-label">Fine Dining</div>
+        </div>
+        <div class="biz-type-card" data-type="cafe" onclick="selectBizType(this,'cafe')">
+          <div class="biz-type-icon">☕</div>
+          <div class="biz-type-label">Cafe</div>
+        </div>
+        <div class="biz-type-card" data-type="bakery" onclick="selectBizType(this,'bakery')">
+          <div class="biz-type-icon">🎂</div>
+          <div class="biz-type-label">Bakery</div>
+        </div>
+        <div class="biz-type-card" data-type="sweets-shop" onclick="selectBizType(this,'sweets-shop')">
+          <div class="biz-type-icon">🍬</div>
+          <div class="biz-type-label">Sweets Shop</div>
+        </div>
+        <div class="biz-type-card" data-type="fast-food" onclick="selectBizType(this,'fast-food')">
+          <div class="biz-type-icon">🍔</div>
+          <div class="biz-type-label">Fast Food</div>
+        </div>
+        <div class="biz-type-card" data-type="other" onclick="selectBizType(this,'other')">
+          <div class="biz-type-icon">🏪</div>
+          <div class="biz-type-label">Other</div>
+        </div>
+      </div>
+      <div class="form-error" id="errBizType" style="margin-top:8px"></div>
+      <button class="btn-auth" onclick="goStep(2)" style="margin-top:20px">Continue →</button>
+    </div>
+
+    <!-- STEP 2: Business Details -->
+    <div id="regStep2" style="display:none">
+      <div class="section-divider">Step 2 — Your business details</div>
+      <div class="form-group">
+        <label>Restaurant / Business Name <span style="color:#ef4444">*</span></label>
+        <input type="text" id="regBusinessName" class="form-input" placeholder="e.g. Sharma's Dhaba"/>
+        <div class="form-error" id="errRegBusinessName"></div>
+      </div>
+      <div class="form-row-2">
+        <div class="form-group">
+          <label>City</label>
+          <input type="text" id="regCity" class="form-input" placeholder="Mumbai"/>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" id="regPhone" class="form-input" placeholder="+91 98765 43210"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Address</label>
+        <input type="text" id="regAddress" class="form-input" placeholder="123 Main Street"/>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:4px">
+        <button class="btn-auth" style="background:rgba(255,255,255,0.07);color:#ddd" onclick="goStep(1)">← Back</button>
+        <button class="btn-auth" onclick="goStep(3)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Account Creation -->
+    <div id="regStep3" style="display:none">
+      <div class="section-divider">Step 3 — Create your account</div>
+      <div class="form-group">
+        <label>Your Name <span style="color:#ef4444">*</span></label>
+        <input type="text" id="regOwnerName" class="form-input" placeholder="Your full name" autocomplete="name"/>
+        <div class="form-error" id="errRegOwnerName"></div>
+      </div>
+      <div class="form-group">
+        <label>Email <span style="color:#ef4444">*</span></label>
+        <input type="email" id="regEmail" class="form-input" placeholder="you@example.com" autocomplete="email"/>
+        <div class="form-error" id="errRegEmail"></div>
+      </div>
+      <div class="form-row-2">
+        <div class="form-group">
+          <label>Password <span style="color:#ef4444">*</span></label>
+          <input type="password" id="regPassword" class="form-input" placeholder="Min 8 characters" autocomplete="new-password"/>
+          <div class="form-error" id="errRegPassword"></div>
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="password" id="regConfirm" class="form-input" placeholder="Repeat password" autocomplete="new-password"/>
+          <div class="form-error" id="errRegConfirm"></div>
+        </div>
+      </div>
+      <div class="form-error" id="errRegGlobal" style="font-size:14px;margin-bottom:12px"></div>
+      <div style="display:flex;gap:10px">
+        <button class="btn-auth" style="background:rgba(255,255,255,0.07);color:#ddd" onclick="goStep(2)">← Back</button>
+        <button class="btn-auth" id="registerBtn" onclick="submitRegistration()">🚀 Create Account</button>
+      </div>
+
+      <p style="font-size:12px;color:#7878a0;text-align:center;margin-top:16px">
+        By registering you agree to our Terms of Service. Your data is stored securely on Firebase.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="auth-footer">
+    Already have an account? <a href="login.html">Sign In →</a>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="assets/js/utils.js"></script>
+<script src="core/tenant-engine.js"></script>
+<script src="core/app-config.js"></script>
+<script>
+  // (Firebase already initialized by app-config.js)
+
+  let selectedBizType = "";
+
+  function selectBizType(el, type) {
+    document.querySelectorAll(".biz-type-card").forEach(c => c.classList.remove("selected"));
+    el.classList.add("selected");
+    selectedBizType = type;
+    document.getElementById("errBizType").textContent = "";
+  }
+
+  function goStep(n) {
+    // Validate current step before advancing
+    if (n === 2) {
+      if (!selectedBizType) { document.getElementById("errBizType").textContent = "Please select a business type"; return; }
+    }
+    if (n === 3) {
+      const name = document.getElementById("regBusinessName")?.value.trim();
+      if (!name) { document.getElementById("errRegBusinessName").textContent = "Business name is required"; return; }
+    }
+
+    [1,2,3].forEach(i => {
+      document.getElementById(`regStep${i}`).style.display = i === n ? "block" : "none";
+      const ind = document.getElementById(`step${i}ind`);
+      if (ind) {
+        ind.className = "step" + (i < n ? " done" : i === n ? " active" : "");
+      }
+    });
+  }
+
+  async function submitRegistration() {
+    const ownerName = document.getElementById("regOwnerName")?.value.trim();
+    const email     = document.getElementById("regEmail")?.value.trim();
+    const password  = document.getElementById("regPassword")?.value;
+    const confirm   = document.getElementById("regConfirm")?.value;
+    let   valid     = true;
+
+    ["errRegOwnerName","errRegEmail","errRegPassword","errRegConfirm","errRegGlobal"]
+      .forEach(id => { const el = document.getElementById(id); if (el) el.textContent = ""; });
+
+    if (!ownerName)  { document.getElementById("errRegOwnerName").textContent = "Name is required"; valid = false; }
+    if (!email)      { document.getElementById("errRegEmail").textContent = "Email is required"; valid = false; }
+    if (!password || password.length < 8) { document.getElementById("errRegPassword").textContent = "Password must be at least 8 characters"; valid = false; }
+    if (password !== confirm) { document.getElementById("errRegConfirm").textContent = "Passwords do not match"; valid = false; }
+    if (!valid) return;
+
+    const btn = document.getElementById("registerBtn");
+    btn.textContent = "Creating account...";
+    btn.disabled    = true;
+
+    try {
+      // Create Firebase Auth user
+      const cred = await firebase.auth().createUserWithEmailAndPassword(email, password);
+      const uid  = cred.user.uid;
+
+      await cred.user.updateProfile({ displayName: ownerName });
+
+      // Generate tenantId from business name
+      const bizName = document.getElementById("regBusinessName")?.value.trim() || "restaurant";
+      const tenantId = bizName.toLowerCase().replace(/[^a-z0-9]/g,"-").replace(/-+/g,"-").substring(0,40) + "-" + Date.now().toString(36);
+
+      const db = firebase.database();
+
+      // 1. Create tenant profile
+      const demoKey = { "fine-dining":"restaurant","cafe":"cafe","bakery":"bakery","sweets-shop":"sweets","fast-food":"fastfood" }[selectedBizType] || "restaurant";
+      const demoCfg = TenantEngine.DEMO_CONFIGS[demoKey];
+
+      await db.ref(`tenants/${tenantId}/profile`).set({
+        businessName:  document.getElementById("regBusinessName")?.value.trim(),
+        businessType:  selectedBizType,
+        address:       document.getElementById("regAddress")?.value.trim() || "",
+        phone:         document.getElementById("regPhone")?.value.trim() || "",
+        city:          document.getElementById("regCity")?.value.trim() || "",
+        ownerName,
+        ownerEmail:    email,
+        createdAt:     Date.now()
+      });
+
+      // 2. Create tenant config (inherit demo theme)
+      await db.ref(`tenants/${tenantId}/config`).set({
+        primaryColor:   demoCfg.primaryColor,
+        secondaryColor: demoCfg.secondaryColor,
+        bgColor:        demoCfg.bgColor,
+        cardColor:      demoCfg.cardColor,
+        textColor:      demoCfg.textColor,
+        fontHeading:    demoCfg.fontHeading,
+        fontBody:       demoCfg.fontBody,
+        logo:           demoCfg.logo,
+        currency:       demoCfg.currency || "INR",
+        currencySymbol: demoCfg.currencySymbol || "₹"
+      });
+
+      // 3. Copy sample menu from demo
+      const menuItems = {};
+      (demoCfg.menu || []).forEach(item => {
+        const { id, ...rest } = item;
+        menuItems[id] = rest;
+      });
+      await db.ref(`tenants/${tenantId}/menu`).set(menuItems);
+
+      // 4. Create default tables
+      const tablesObj = {};
+      [1,2,3,4,5,6].forEach(n => {
+        tablesObj[`t${n}`] = { id:`t${n}`, number:n, label:`Table ${n}` };
+      });
+      await db.ref(`tenants/${tenantId}/tables`).set(tablesObj);
+
+      // 5. Set user access
+      await db.ref(`userAccess/${uid}/${tenantId}`).set("owner");
+
+      // 6. Create trial record
+      await db.ref(`trials/${tenantId}`).set({
+        startedAt: Date.now(),
+        expiresAt: Date.now() + 14 * 24 * 60 * 60 * 1000,
+        plan:      "trial",
+        status:    "active"
+      });
+
+      // 7. Add to tenant directory
+      await db.ref(`tenantDirectory/${tenantId}`).set({
+        businessName: document.getElementById("regBusinessName")?.value.trim(),
+        businessType: selectedBizType,
+        ownerEmail:   email,
+        createdAt:    Date.now(),
+        status:       "trial"
+      });
+
+      Toast.success("Account created! Redirecting to your dashboard...");
+      setTimeout(() => {
+        window.location.href = `owner.html?restaurant=${tenantId}`;
+      }, 1500);
+
+    } catch (err) {
+      const msgs = {
+        "auth/email-already-in-use": "This email is already registered. Try logging in.",
+        "auth/invalid-email":        "Invalid email address.",
+        "auth/weak-password":        "Password is too weak. Use at least 8 characters."
+      };
+      document.getElementById("errRegGlobal").textContent = msgs[err.code] || err.message || "Registration failed. Please try again.";
+      btn.textContent = "🚀 Create Account";
+      btn.disabled    = false;
+    }
+  }
+</script>
+</body>
+</html>

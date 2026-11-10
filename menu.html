@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="theme-color" content="#070710"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <title>Menu — RestroGo</title>
+  <meta name="description" content="Online ordering menu"/>
+
+  <!-- Fonts loaded dynamically by TenantEngine -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+
+  <link rel="stylesheet" href="assets/css/base.css"/>
+  <link rel="stylesheet" href="assets/css/menu.css"/>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="menu-nav" id="menuNav">
+  <div class="menu-nav-logo" id="menuNavLogo">
+    <span class="nav-logo-icon" id="logoIcon">🍽️</span>
+    <span id="businessNameNav">Restaurant</span>
+  </div>
+  <div class="menu-nav-right">
+    <div class="menu-table-badge" id="tableBadge" style="display:none">
+      📋 Table <span id="tableNumberNav"></span>
+    </div>
+    <button class="menu-cart-btn" id="cartToggleBtn" onclick="CartManager.openCart()" aria-label="Open cart">
+      🛒 Cart
+      <span class="cart-count hidden" id="cartCount">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="menu-hero" id="menuHero">
+  <img class="menu-hero-img" id="heroImg" src="" alt="Restaurant hero"/>
+  <div class="menu-hero-overlay">
+    <div class="menu-hero-info">
+      <h1 id="heroBusinessName">Loading...</h1>
+      <div class="menu-hero-tagline" id="heroTagline"></div>
+      <div class="menu-hero-meta">
+        <span id="heroHours">⏰ Open Now</span>
+        <span id="heroAddress">📍 </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROMO BANNERS ── -->
+<div class="promo-banners" id="promoBanners"></div>
+
+<!-- ── SEARCH ── -->
+<div class="menu-search-wrap">
+  <div class="menu-search">
+    <span class="menu-search-icon">🔍</span>
+    <input type="search" id="menuSearch" placeholder="Search food & drinks..." autocomplete="off"/>
+    <button class="search-clear" id="searchClear" aria-label="Clear search">✕</button>
+  </div>
+</div>
+
+<!-- ── CATEGORY TABS ── -->
+<div class="category-tabs-wrap">
+  <div class="category-tabs" id="categoryTabs"></div>
+</div>
+
+<!-- ── MENU BODY ── -->
+<main class="menu-body" id="menuBody">
+  <!-- Populated by JS -->
+  <div class="empty-state" id="menuSkeleton">
+    <div class="empty-icon">🍽️</div>
+    <h3>Loading menu...</h3>
+  </div>
+</main>
+
+<!-- ── CART BACKDROP ── -->
+<div class="cart-backdrop" id="cartBackdrop" onclick="CartManager.closeCart()"></div>
+
+<!-- ── CART DRAWER ── -->
+<aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+  <div class="cart-header">
+    <h2>Your Order</h2>
+    <button class="cart-close" onclick="CartManager.closeCart()" aria-label="Close cart">✕</button>
+  </div>
+
+  <!-- Order Type -->
+  <div style="padding:14px 20px 0">
+    <div class="order-type-toggle">
+      <button class="order-type-btn active" data-type="dine-in"  onclick="CartManager.setOrderType('dine-in')">🍽️ Dine In</button>
+      <button class="order-type-btn"        data-type="takeaway" onclick="CartManager.setOrderType('takeaway')">🥡 Takeaway</button>
+    </div>
+  </div>
+
+  <div class="cart-items-list" id="cartItemsList">
+    <div class="empty-state">
+      <div class="empty-icon">🛒</div>
+      <h3>Cart is empty</h3>
+      <p>Add items from the menu to get started.</p>
+    </div>
+  </div>
+
+  <div class="cart-footer">
+    <!-- Special Instructions -->
+    <div class="cart-instructions">
+      <textarea id="specialInstructions" rows="2" placeholder="Special instructions (allergies, preferences...)"></textarea>
+    </div>
+
+    <!-- Coupon -->
+    <div class="cart-coupon">
+      <input type="text" id="couponInput" placeholder="Enter coupon code"/>
+      <button class="cart-coupon-btn" onclick="CartManager.applyCoupon()">Apply</button>
+    </div>
+
+    <!-- Totals -->
+    <div class="cart-totals" id="cartTotals"></div>
+
+    <!-- Place Order -->
+    <button class="place-order-btn" id="placeOrderBtn" onclick="CartManager.placeOrder()" disabled>
+      Place Order →
+    </button>
+  </div>
+</aside>
+
+<!-- ── ORDER SUCCESS ── -->
+<div class="order-success-overlay" id="orderSuccessOverlay">
+  <div class="order-success-card">
+    <div class="success-icon">✅</div>
+    <div class="success-title">Order Placed!</div>
+    <div class="success-sub">Your order has been sent to the kitchen. We'll have it ready soon!</div>
+    <div class="success-order-id" id="successOrderId">#RG-000000</div>
+    <button class="btn btn-primary btn-block" onclick="CartManager.dismissSuccess()">
+      Continue Ordering
+    </button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast-container"></div>
+
+<!-- Firebase SDK (compat) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+<!-- ✅ Edit Firebase config in core/app-config.js only -->
+<script src="core/app-config.js"></script>
+
+<!-- RestroGo Core -->
+<script src="assets/js/utils.js"></script>
+<script src="core/tenant-engine.js"></script>
+<script src="assets/js/menu.js"></script>
+</body>
+</html>

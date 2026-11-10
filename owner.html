@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="theme-color" content="#07070f"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <title>Owner Dashboard — RestroGo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/base.css"/>
+  <link rel="stylesheet" href="assets/css/owner.css"/>
+</head>
+<body>
+
+<!-- ── SIDEBAR ── -->
+<aside class="owner-sidebar" id="ownerSidebar">
+  <div class="sb-logo">
+    <span id="sbLogoIcon">🍽️</span>
+    <span id="sbRestaurantName">Owner Panel</span>
+  </div>
+
+  <nav class="sb-nav">
+    <a href="#" class="sb-link active" data-tab="overview">
+      <span class="sb-icon">📊</span><span>Overview</span>
+    </a>
+    <a href="#" class="sb-link" data-tab="orders">
+      <span class="sb-icon">🧾</span><span>Orders</span>
+    </a>
+    <a href="#" class="sb-link" data-tab="menu">
+      <span class="sb-icon">🍽️</span><span>Menu</span>
+    </a>
+    <a href="#" class="sb-link" data-tab="branding">
+      <span class="sb-icon">🎨</span><span>Branding</span>
+      <span class="sb-badge-new">Owner Control</span>
+    </a>
+    <a href="#" class="sb-link" data-tab="tables">
+      <span class="sb-icon">📱</span><span>Tables & QR</span>
+    </a>
+    <a href="#" class="sb-link" data-tab="settings">
+      <span class="sb-icon">⚙️</span><span>Settings</span>
+    </a>
+  </nav>
+
+  <div class="sb-bottom">
+    <a href="kitchen.html" class="sb-link-ext" target="_blank">
+      <span class="sb-icon">🍳</span> Kitchen Display
+    </a>
+    <a href="menu.html" class="sb-link-ext sb-preview-link" id="sbPreviewLink" target="_blank">
+      <span class="sb-icon">👁️</span> Live Preview
+    </a>
+  </div>
+</aside>
+
+<!-- ── MOBILE TOPBAR ── -->
+<div class="owner-topbar" id="ownerTopbar">
+  <button class="topbar-menu-btn" id="sidebarToggle" aria-label="Toggle menu">☰</button>
+  <span id="topbarTitle">Overview</span>
+  <a href="menu.html" target="_blank" class="topbar-preview-btn" id="topbarPreviewBtn">👁️ Preview</a>
+</div>
+
+<!-- ── MAIN CONTENT ── -->
+<main class="owner-main" id="ownerMain">
+
+  <!-- ── TAB: OVERVIEW ── -->
+  <section id="tab-overview" class="owner-tab active">
+    <div class="owner-page-header">
+      <h1>Good <span id="greetingTime">day</span>, <span id="greetingName">Owner</span>! 👋</h1>
+      <p class="owner-page-sub">Here's how your restaurant is doing today.</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="owner-stats-grid" id="ownerStatsGrid">
+      <div class="owner-stat-card">
+        <div class="osc-icon">💰</div>
+        <div class="osc-val" id="statRevenue">₹0</div>
+        <div class="osc-lbl">Today's Revenue</div>
+      </div>
+      <div class="owner-stat-card">
+        <div class="osc-icon">🧾</div>
+        <div class="osc-val" id="statOrders">0</div>
+        <div class="osc-lbl">Orders Today</div>
+      </div>
+      <div class="owner-stat-card">
+        <div class="osc-icon">⚡</div>
+        <div class="osc-val" id="statActive">0</div>
+        <div class="osc-lbl">Active Orders</div>
+      </div>
+      <div class="owner-stat-card">
+        <div class="osc-icon">📈</div>
+        <div class="osc-val" id="statAvgOrder">₹0</div>
+        <div class="osc-lbl">Avg Order Value</div>
+      </div>
+    </div>
+
+    <!-- Recent Orders -->
+    <div class="owner-section">
+      <div class="owner-section-header">
+        <h2>Recent Orders</h2>
+        <button class="btn btn-ghost btn-sm" onclick="OwnerApp.switchTab('orders')">View All →</button>
+      </div>
+      <div class="owner-table-wrap">
+        <table class="owner-table" id="recentOrdersTable">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Table</th>
+              <th>Items</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody id="recentOrdersBody">
+            <tr><td colspan="6" class="text-center text-muted">Loading orders...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Best Sellers -->
+    <div class="owner-section">
+      <div class="owner-section-header">
+        <h2>Best Sellers</h2>
+      </div>
+      <div class="best-sellers-grid" id="bestSellersGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TAB: ORDERS ── -->
+  <section id="tab-orders" class="owner-tab">
+    <div class="owner-page-header">
+      <h1>Orders</h1>
+      <button class="btn btn-ghost btn-sm" onclick="OwnerApp.exportOrders()">📥 Export CSV</button>
+    </div>
+    <div class="owner-filters">
+      <select id="orderStatusFilter" onchange="OwnerApp.filterOrders()" class="form-input" style="width:auto">
+        <option value="all">All Statuses</option>
+        <option value="new">New</option>
+        <option value="preparing">Preparing</option>
+        <option value="ready">Ready</option>
+        <option value="completed">Completed</option>
+      </select>
+      <input type="date" id="orderDateFilter" onchange="OwnerApp.filterOrders()" class="form-input" style="width:auto"/>
+    </div>
+    <div class="owner-table-wrap">
+      <table class="owner-table" id="allOrdersTable">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Table</th>
+            <th>Type</th>
+            <th>Items</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody id="allOrdersBody">
+          <tr><td colspan="7" class="text-center text-muted">Loading orders...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── TAB: MENU ── -->
+  <section id="tab-menu" class="owner-tab">
+    <div class="owner-page-header">
+      <h1>Menu Management</h1>
+      <button class="btn btn-primary btn-sm" onclick="OwnerApp.openAddItemModal()">+ Add Item</button>
+    </div>
+
+    <div class="owner-section">
+      <div class="menu-mgmt-grid" id="menuMgmtGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TAB: BRANDING (Owner Key Feature) ── -->
+  <section id="tab-branding" class="owner-tab">
+    <div class="owner-page-header">
+      <h1>🎨 Branding &amp; Customization</h1>
+      <p class="owner-page-sub">Changes apply live to your customer ordering page.</p>
+    </div>
+
+    <div class="branding-grid">
+
+      <!-- Left: Controls -->
+      <div class="branding-controls">
+
+        <!-- Logo Upload -->
+        <div class="branding-card">
+          <h3>🖼️ Logo</h3>
+          <div class="logo-upload-wrap" id="logoUploadWrap">
+            <div class="logo-preview" id="logoPreview">
+              <span id="logoPreviewIcon" style="font-size:48px">🍽️</span>
+            </div>
+            <div class="logo-upload-actions">
+              <label class="btn btn-outline btn-sm" for="logoImageInput">Upload Image</label>
+              <input type="file" id="logoImageInput" accept="image/*" class="hidden" onchange="OwnerApp.handleLogoUpload(event)"/>
+              <div class="form-group" style="margin:0">
+                <label>Or use an emoji</label>
+                <input type="text" id="logoEmojiInput" class="form-input" placeholder="e.g. 🍔" maxlength="4"/>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="OwnerApp.saveLogo()">Save Logo</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Color Picker -->
+        <div class="branding-card">
+          <h3>🎨 Brand Colors</h3>
+          <div class="color-picker-grid">
+            <div class="color-picker-item">
+              <label>Primary Color</label>
+              <div class="color-input-wrap">
+                <input type="color" id="colorPrimary" onchange="OwnerApp.previewColor()" value="#e05c1a"/>
+                <input type="text" id="colorPrimaryHex" class="form-input color-hex-input" placeholder="#e05c1a" oninput="OwnerApp.syncColorFromHex('primary')"/>
+              </div>
+            </div>
+            <div class="color-picker-item">
+              <label>Background Color</label>
+              <div class="color-input-wrap">
+                <input type="color" id="colorBg" onchange="OwnerApp.previewColor()" value="#111111"/>
+                <input type="text" id="colorBgHex" class="form-input color-hex-input" placeholder="#111111" oninput="OwnerApp.syncColorFromHex('bg')"/>
+              </div>
+            </div>
+            <div class="color-picker-item">
+              <label>Card / Surface</label>
+              <div class="color-input-wrap">
+                <input type="color" id="colorCard" onchange="OwnerApp.previewColor()" value="#1e1e1e"/>
+                <input type="text" id="colorCardHex" class="form-input color-hex-input" placeholder="#1e1e1e" oninput="OwnerApp.syncColorFromHex('card')"/>
+              </div>
+            </div>
+            <div class="color-picker-item">
+              <label>Text Color</label>
+              <div class="color-input-wrap">
+                <input type="color" id="colorText" onchange="OwnerApp.previewColor()" value="#f8f8f8"/>
+                <input type="text" id="colorTextHex" class="form-input color-hex-input" placeholder="#f8f8f8" oninput="OwnerApp.syncColorFromHex('text')"/>
+              </div>
+            </div>
+          </div>
+
+          <!-- Preset Themes -->
+          <div class="theme-presets">
+            <div class="theme-preset-label">Quick Presets:</div>
+            <div class="theme-preset-dots">
+              <button class="theme-preset" style="background:linear-gradient(135deg,#1a1a2e,#c9a84c)" onclick="OwnerApp.applyPreset('restaurant')" title="Fine Dining"></button>
+              <button class="theme-preset" style="background:linear-gradient(135deg,#4a7c59,#faf7f2)" onclick="OwnerApp.applyPreset('cafe')" title="Cafe"></button>
+              <button class="theme-preset" style="background:linear-gradient(135deg,#c17a7a,#fff8f3)" onclick="OwnerApp.applyPreset('bakery')" title="Bakery"></button>
+              <button class="theme-preset" style="background:linear-gradient(135deg,#7a1c1c,#c9952a)" onclick="OwnerApp.applyPreset('sweets')" title="Sweets"></button>
+              <button class="theme-preset" style="background:linear-gradient(135deg,#e05c1a,#111)" onclick="OwnerApp.applyPreset('fastfood')" title="Fast Food"></button>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" onclick="OwnerApp.saveColors()" style="margin-top:16px">💾 Save Colors</button>
+        </div>
+
+        <!-- Banner Image -->
+        <div class="branding-card">
+          <h3>🖼️ Hero Banner Image</h3>
+          <div class="banner-upload-wrap">
+            <img id="bannerPreviewImg" src="" alt="Banner preview" class="banner-preview" style="display:none"/>
+            <div id="bannerPlaceholder" class="banner-placeholder">No banner set. Upload an image or paste a URL.</div>
+            <div class="banner-actions">
+              <label class="btn btn-outline btn-sm" for="bannerFileInput">Upload Image</label>
+              <input type="file" id="bannerFileInput" accept="image/*" class="hidden" onchange="OwnerApp.handleBannerUpload(event)"/>
+            </div>
+            <div class="form-group" style="margin-top:12px">
+              <label>Or paste image URL</label>
+              <div style="display:flex;gap:8px">
+                <input type="url" id="bannerUrlInput" class="form-input" placeholder="https://..."/>
+                <button class="btn btn-outline btn-sm" onclick="OwnerApp.applyBannerUrl()">Apply</button>
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="OwnerApp.saveBanner()" style="margin-top:12px">💾 Save Banner</button>
+          </div>
+        </div>
+
+        <!-- Business Info -->
+        <div class="branding-card">
+          <h3>📋 Business Info</h3>
+          <div class="form-group">
+            <label>Business Name</label>
+            <input type="text" id="brandingBusinessName" class="form-input" placeholder="Your Restaurant Name"/>
+          </div>
+          <div class="form-group">
+            <label>Tagline</label>
+            <input type="text" id="brandingTagline" class="form-input" placeholder="Your tagline here"/>
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" id="brandingAddress" class="form-input" placeholder="123 Main Street, City"/>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" id="brandingPhone" class="form-input" placeholder="+91 98765 43210"/>
+          </div>
+          <div class="form-group">
+            <label>Opening Hours</label>
+            <input type="text" id="brandingHours" class="form-input" placeholder="10:00 AM – 10:00 PM"/>
+          </div>
+          <button class="btn btn-primary" onclick="OwnerApp.saveBusinessInfo()">💾 Save Info</button>
+        </div>
+
+      </div>
+
+      <!-- Right: Live Preview -->
+      <div class="branding-preview-panel">
+        <div class="preview-panel-header">
+          <h3>👁️ Live Preview</h3>
+          <a id="openPreviewLink" href="menu.html?demo=restaurant" target="_blank" class="btn btn-ghost btn-sm">Open Full Preview ↗</a>
+        </div>
+        <div class="preview-phone-frame">
+          <div class="preview-phone-inner" id="livePreviewFrame">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── TAB: TABLES & QR ── -->
+  <section id="tab-tables" class="owner-tab">
+    <div class="owner-page-header">
+      <h1>Tables &amp; QR Codes</h1>
+      <button class="btn btn-primary btn-sm" onclick="OwnerApp.addTable()">+ Add Table</button>
+    </div>
+    <p class="owner-page-sub">Each table gets a unique QR code. Print and place on the table.</p>
+
+    <div class="tables-grid" id="tablesGrid">
+      <!-- Populated by JS -->
+    </div>
+  </section>
+
+  <!-- ── TAB: SETTINGS ── -->
+  <section id="tab-settings" class="owner-tab">
+    <div class="owner-page-header">
+      <h1>Settings</h1>
+    </div>
+
+    <div class="settings-grid">
+      <div class="settings-card">
+        <h3>Restaurant Details</h3>
+        <div class="form-group">
+          <label>Currency Symbol</label>
+          <input type="text" id="settingCurrency" class="form-input" value="₹" maxlength="3"/>
+        </div>
+        <div class="form-group">
+          <label>Subscription Status</label>
+          <div class="subscription-badge active" id="subscriptionStatus">✅ Trial Active — 14 days remaining</div>
+        </div>
+        <button class="btn btn-primary" onclick="OwnerApp.saveSettings()">Save Settings</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── ADD/EDIT ITEM MODAL ── -->
+<div class="modal-backdrop" id="itemModalBackdrop" onclick="OwnerApp.closeItemModal()"></div>
+<div class="modal" id="itemModal">
+  <div class="modal-header">
+    <h2 id="itemModalTitle">Add Menu Item</h2>
+    <button class="cart-close" onclick="OwnerApp.closeItemModal()">✕</button>
+  </div>
+  <div class="modal-body">
+    <div class="form-row-2">
+      <div class="form-group">
+        <label>Item Name <span class="req">*</span></label>
+        <input type="text" id="itemName" class="form-input" placeholder="e.g. Truffle Risotto"/>
+      </div>
+      <div class="form-group">
+        <label>Price <span class="req">*</span></label>
+        <input type="number" id="itemPrice" class="form-input" placeholder="450" min="0"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea id="itemDesc" class="form-input" rows="2" placeholder="Describe this item..."></textarea>
+    </div>
+    <div class="form-row-2">
+      <div class="form-group">
+        <label>Category</label>
+        <select id="itemCategory" class="form-input">
+          <!-- Populated dynamically -->
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Type</label>
+        <select id="itemVeg" class="form-input">
+          <option value="true">🟢 Veg</option>
+          <option value="false">🔴 Non-Veg</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Image URL</label>
+      <input type="url" id="itemImg" class="form-input" placeholder="https://unsplash.com/..."/>
+    </div>
+    <div class="form-row-2">
+      <div class="form-group">
+        <label>Popular Item?</label>
+        <select id="itemPopular" class="form-input">
+          <option value="false">No</option>
+          <option value="true">Yes ⭐</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Available?</label>
+        <select id="itemAvailable" class="form-input">
+          <option value="true">Yes ✅</option>
+          <option value="false">No (hidden)</option>
+        </select>
+      </div>
+    </div>
+    <input type="hidden" id="editItemId"/>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-ghost" onclick="OwnerApp.closeItemModal()">Cancel</button>
+    <button class="btn btn-primary" onclick="OwnerApp.saveItem()">💾 Save Item</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast-container"></div>
+
+<!-- QR Code library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<!-- Firebase SDK (compat) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+<!-- ✅ Edit Firebase config in core/app-config.js only -->
+<script src="core/app-config.js"></script>
+
+<!-- RestroGo Core -->
+<script src="assets/js/utils.js"></script>
+<script src="core/tenant-engine.js"></script>
+<script src="assets/js/owner.js"></script>
+</body>
+</html>

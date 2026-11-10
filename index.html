@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="theme-color" content="#070710"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <title>RestroGo — Restaurant SaaS Platform</title>
+  <meta name="description" content="Turn any restaurant into a premium online ordering experience. QR-based ordering, live kitchen dashboard, and owner analytics — all in one platform."/>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet"/>
+
+  <!-- Base CSS -->
+  <link rel="stylesheet" href="assets/css/base.css"/>
+  <link rel="stylesheet" href="assets/css/landing.css"/>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="land-nav" id="landNav">
+  <div class="container land-nav-inner">
+    <a href="index.html" class="land-logo">
+      <span class="logo-icon">🍽️</span>
+      <span class="logo-text">RestroGo</span>
+    </a>
+    <ul class="land-nav-links" id="landNavLinks">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#demos">Demos</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="land-nav-actions">
+      <a href="login.html" class="btn btn-ghost btn-sm">Log In</a>
+      <a href="register.html" class="btn btn-primary btn-sm">Start Free Trial</a>
+    </div>
+    <button class="land-hamburger" id="landHamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <!-- Mobile drawer -->
+  <div class="land-mobile-menu" id="landMobileMenu">
+    <a href="#features">Features</a>
+    <a href="#demos">Demos</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="login.html" class="mob-login">Log In</a>
+    <a href="register.html" class="btn btn-primary btn-block mob-cta">Start Free Trial →</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="land-hero" id="home">
+  <div class="hero-bg-glow"></div>
+  <div class="container">
+    <div class="land-hero-inner">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <span class="pulse-dot"></span>
+          Premium Restaurant SaaS Platform
+        </div>
+        <h1 class="hero-title">
+          Your Restaurant.<br/>
+          <span class="hero-highlight">Online in Minutes.</span>
+        </h1>
+        <p class="hero-desc">
+          Give every restaurant its own premium ordering experience —
+          QR codes, live kitchen display, owner dashboard, and real-time analytics.
+          One platform, unlimited restaurants.
+        </p>
+        <div class="hero-btns">
+          <a href="register.html" class="btn btn-primary btn-lg">
+            Start 14-Day Free Trial →
+          </a>
+          <a href="#demos" class="btn btn-ghost btn-lg">
+            See Live Demos
+          </a>
+        </div>
+        <div class="hero-trust">
+          <span>✅ No credit card required</span>
+          <span>✅ 5 business types supported</span>
+          <span>✅ Firebase-powered & secure</span>
+        </div>
+      </div>
+      <div class="hero-visual-wrap">
+        <div class="hero-phone-mockup">
+          <div class="phone-screen">
+            <div class="phone-header">
+              <div class="phone-logo">🍽️ La Maison</div>
+              <div class="phone-cart-icon">🛒 2</div>
+            </div>
+            <div class="phone-hero-img">
+              <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=75" alt="Restaurant" loading="lazy"/>
+              <div class="phone-overlay-text">Fine Dining Experience</div>
+            </div>
+            <div class="phone-menu-preview">
+              <div class="phone-menu-item">
+                <span>Truffle Risotto</span>
+                <span>₹1,450</span>
+              </div>
+              <div class="phone-menu-item">
+                <span>Beef Wellington</span>
+                <span>₹2,800</span>
+              </div>
+              <div class="phone-add-btn">+ Add to Cart</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-float-card fc1">
+          <span class="fc-icon">🔔</span>
+          <div>
+            <strong>New Order!</strong>
+            <small>Table 4 • ₹1,450</small>
+          </div>
+        </div>
+        <div class="hero-float-card fc2">
+          <span class="fc-icon">📊</span>
+          <div>
+            <strong>Today's Sales</strong>
+            <small>₹28,400 • 24 orders</small>
+          </div>
+        </div>
+        <div class="hero-float-card fc3">
+          <span class="fc-icon">📱</span>
+          <div>
+            <strong>QR Scan</strong>
+            <small>Table 7 just scanned</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS ══ -->
+<section class="land-stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item fade-in">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Business Types</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-num">1 Platform</div>
+        <div class="stat-label">Infinite Restaurants</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-num">Real-Time</div>
+        <div class="stat-label">Firebase Kitchen Orders</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Tenant Isolated & Secure</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEATURES ══ -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="sec-header fade-in">
+      <span class="sec-tag">Platform Features</span>
+      <h2 class="sec-title">Everything a Restaurant Needs</h2>
+      <p class="sec-sub">One platform handles ordering, kitchen, analytics, and management for any type of food business.</p>
+    </div>
+    <div class="features-grid">
+
+      <div class="feat-card fade-in">
+        <div class="feat-icon">📱</div>
+        <h3>QR Code Ordering</h3>
+        <p>Customers scan a QR at their table and order instantly. No app download, no waiting for a waiter.</p>
+      </div>
+
+      <div class="feat-card fade-in">
+        <div class="feat-icon">🍳</div>
+        <h3>Live Kitchen Display</h3>
+        <p>Orders appear instantly on the kitchen screen. Accept, prepare, mark ready — all with one click.</p>
+      </div>
+
+      <div class="feat-card feat-card-featured fade-in">
+        <div class="feat-badge">Most Used</div>
+        <div class="feat-icon">🎨</div>
+        <h3>Owner Branding Control</h3>
+        <p>Upload your logo, pick your brand colors, update banner images — your ordering page updates live, no coding needed.</p>
+      </div>
+
+      <div class="feat-card fade-in">
+        <div class="feat-icon">📊</div>
+        <h3>Owner Analytics</h3>
+        <p>Today's sales, top items, order history, revenue trends — all scoped securely to your restaurant.</p>
+      </div>
+
+      <div class="feat-card fade-in">
+        <div class="feat-icon">🔒</div>
+        <h3>Multi-Tenant Isolation</h3>
+        <p>Each restaurant's data, orders, and config are completely separated. Restaurant A never sees Restaurant B's data.</p>
+      </div>
+
+      <div class="feat-card fade-in">
+        <div class="feat-icon">🛒</div>
+        <h3>Smart Cart & Checkout</h3>
+        <p>Add-ons, customizations, coupons, special instructions, dine-in or takeaway — full ordering flexibility.</p>
+      </div>
+
+      <div class="feat-card fade-in">
+        <div class="feat-icon">🧾</div>
+        <h3>Menu Management</h3>
+        <p>Add, edit or remove items. Upload photos, toggle availability, set categories — all from the owner dashboard.</p>
+      </div>
+
+      <div class="feat-card fade-in">
+        <div class="feat-icon">🪄</div>
+        <h3>5 Premium Themes</h3>
+        <p>Fine dining, cafe, bakery, sweets shop, fast food — each with completely unique premium branding.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ 5 DEMO CARDS ══ -->
+<section class="section demos-section" id="demos">
+  <div class="container">
+    <div class="sec-header fade-in">
+      <span class="sec-tag">Live Demos</span>
+      <h2 class="sec-title">5 Premium Business Experiences</h2>
+      <p class="sec-sub">Click any demo to see how your restaurant could look — each one is a completely different brand.</p>
+    </div>
+    <div class="demos-grid">
+
+      <!-- Fine Dining -->
+      <div class="demo-card fade-in" data-demo="restaurant">
+        <div class="demo-card-img" style="background: linear-gradient(135deg,#1a1a2e,#2a2040)">
+          <img data-src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=75" alt="Fine Dining" class="skeleton"/>
+          <div class="demo-overlay">
+            <a href="menu.html?demo=restaurant" class="btn btn-primary btn-sm demo-order-btn">View Menu</a>
+            <a href="owner.html?demo=restaurant" class="btn btn-ghost btn-sm">Owner Panel</a>
+          </div>
+        </div>
+        <div class="demo-card-body">
+          <div class="demo-type-badge" style="color:#c9a84c;border-color:rgba(201,168,76,0.3)">Fine Dining</div>
+          <h3>La Maison Élégante</h3>
+          <p>Midnight charcoal · Champagne gold · Serif elegance</p>
+          <div class="demo-theme-dots">
+            <span style="background:#1a1a2e"></span>
+            <span style="background:#c9a84c"></span>
+            <span style="background:#f5f0e8"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cafe -->
+      <div class="demo-card fade-in" data-demo="cafe">
+        <div class="demo-card-img" style="background: linear-gradient(135deg,#4a7c59,#6a9e70)">
+          <img data-src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=500&q=75" alt="Cafe" class="skeleton"/>
+          <div class="demo-overlay">
+            <a href="menu.html?demo=cafe" class="btn btn-primary btn-sm demo-order-btn">View Menu</a>
+            <a href="owner.html?demo=cafe" class="btn btn-ghost btn-sm">Owner Panel</a>
+          </div>
+        </div>
+        <div class="demo-card-body">
+          <div class="demo-type-badge" style="color:#4a7c59;border-color:rgba(74,124,89,0.3)">Modern Cafe</div>
+          <h3>The Velvet Cup</h3>
+          <p>Sage green · Warm cream · Minimalist coffee identity</p>
+          <div class="demo-theme-dots">
+            <span style="background:#4a7c59"></span>
+            <span style="background:#c8a96e"></span>
+            <span style="background:#faf7f2"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bakery -->
+      <div class="demo-card fade-in" data-demo="bakery">
+        <div class="demo-card-img" style="background: linear-gradient(135deg,#c17a7a,#e8a0a0)">
+          <img data-src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=500&q=75" alt="Bakery" class="skeleton"/>
+          <div class="demo-overlay">
+            <a href="menu.html?demo=bakery" class="btn btn-primary btn-sm demo-order-btn">View Menu</a>
+            <a href="owner.html?demo=bakery" class="btn btn-ghost btn-sm">Owner Panel</a>
+          </div>
+        </div>
+        <div class="demo-card-body">
+          <div class="demo-type-badge" style="color:#c17a7a;border-color:rgba(193,122,122,0.3)">Premium Bakery</div>
+          <h3>Pâtisserie Rose</h3>
+          <p>Butter cream · Dusty rose · Elegant French pastry</p>
+          <div class="demo-theme-dots">
+            <span style="background:#c17a7a"></span>
+            <span style="background:#8b5e3c"></span>
+            <span style="background:#fff8f3"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sweets -->
+      <div class="demo-card fade-in" data-demo="sweets">
+        <div class="demo-card-img" style="background: linear-gradient(135deg,#7a1c1c,#3a1000)">
+          <img data-src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=75" alt="Sweets" class="skeleton"/>
+          <div class="demo-overlay">
+            <a href="menu.html?demo=sweets" class="btn btn-primary btn-sm demo-order-btn">View Menu</a>
+            <a href="owner.html?demo=sweets" class="btn btn-ghost btn-sm">Owner Panel</a>
+          </div>
+        </div>
+        <div class="demo-card-body">
+          <div class="demo-type-badge" style="color:#c9952a;border-color:rgba(201,149,42,0.3)">Indian Sweets</div>
+          <h3>Mithas — The Sweet House</h3>
+          <p>Deep maroon · Antique gold · Traditional luxury</p>
+          <div class="demo-theme-dots">
+            <span style="background:#7a1c1c"></span>
+            <span style="background:#c9952a"></span>
+            <span style="background:#fdf6e9"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fast Food -->
+      <div class="demo-card fade-in" data-demo="fastfood">
+        <div class="demo-card-img" style="background: linear-gradient(135deg,#e05c1a,#2c2c2c)">
+          <img data-src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&q=75" alt="Fast Food" class="skeleton"/>
+          <div class="demo-overlay">
+            <a href="menu.html?demo=fastfood" class="btn btn-primary btn-sm demo-order-btn">View Menu</a>
+            <a href="owner.html?demo=fastfood" class="btn btn-ghost btn-sm">Owner Panel</a>
+          </div>
+        </div>
+        <div class="demo-card-body">
+          <div class="demo-type-badge" style="color:#e05c1a;border-color:rgba(224,92,26,0.3)">Fast Food</div>
+          <h3>BurgerBlast</h3>
+          <p>Burnt orange · Graphite · Bold modern energy</p>
+          <div class="demo-theme-dots">
+            <span style="background:#e05c1a"></span>
+            <span style="background:#2c2c2c"></span>
+            <span style="background:#f8f8f8"></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section class="section hiw-section" id="how-it-works">
+  <div class="container">
+    <div class="sec-header fade-in">
+      <span class="sec-tag">How It Works</span>
+      <h2 class="sec-title">From Setup to First Order in Minutes</h2>
+    </div>
+    <div class="hiw-grid">
+      <div class="hiw-step fade-in">
+        <div class="hiw-num">01</div>
+        <div class="hiw-icon">📝</div>
+        <h3>Register Your Restaurant</h3>
+        <p>Choose your business type, enter your details, and your account is created instantly with a sample menu.</p>
+      </div>
+      <div class="hiw-arrow fade-in">→</div>
+      <div class="hiw-step fade-in">
+        <div class="hiw-num">02</div>
+        <div class="hiw-icon">🎨</div>
+        <h3>Brand It Your Way</h3>
+        <p>Upload your logo, pick your colors, add your banner. Your ordering page looks exactly like your brand.</p>
+      </div>
+      <div class="hiw-arrow fade-in">→</div>
+      <div class="hiw-step fade-in">
+        <div class="hiw-num">03</div>
+        <div class="hiw-icon">📱</div>
+        <h3>Download Your QR Code</h3>
+        <p>Print the QR code for each table. Customers scan and order — no staff needed for the ordering step.</p>
+      </div>
+      <div class="hiw-arrow fade-in">→</div>
+      <div class="hiw-step fade-in">
+        <div class="hiw-num">04</div>
+        <div class="hiw-icon">🍳</div>
+        <h3>Kitchen Gets Live Orders</h3>
+        <p>Orders appear instantly on your kitchen screen. Accept, prepare, mark ready — all in real time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ OWNER DASHBOARD SHOWCASE ══ -->
+<section class="section owner-showcase-section">
+  <div class="container">
+    <div class="owner-showcase-grid">
+      <div class="owner-showcase-text fade-in">
+        <span class="sec-tag">Owner Dashboard</span>
+        <h2 class="sec-title">Full Control.<br/>Zero Technical Skills.</h2>
+        <p class="sec-sub" style="text-align:left;max-width:100%">
+          Restaurant owners get a powerful dashboard to manage everything —
+          without needing a developer.
+        </p>
+        <ul class="owner-feat-list">
+          <li>
+            <span class="ofl-icon">🖼️</span>
+            <div>
+              <strong>Upload Logo & Banner</strong>
+              <small>Drag and drop — live preview updates instantly</small>
+            </div>
+          </li>
+          <li>
+            <span class="ofl-icon">🎨</span>
+            <div>
+              <strong>Pick Brand Colors</strong>
+              <small>Color picker synced directly to your ordering page</small>
+            </div>
+          </li>
+          <li>
+            <span class="ofl-icon">🍽️</span>
+            <div>
+              <strong>Manage Full Menu</strong>
+              <small>Add, edit, delete items with photos and pricing</small>
+            </div>
+          </li>
+          <li>
+            <span class="ofl-icon">📱</span>
+            <div>
+              <strong>QR Code Download</strong>
+              <small>One per table, print-ready PNG format</small>
+            </div>
+          </li>
+          <li>
+            <span class="ofl-icon">📊</span>
+            <div>
+              <strong>Sales & Analytics</strong>
+              <small>Today's revenue, best sellers, order history</small>
+            </div>
+          </li>
+        </ul>
+        <a href="owner.html?demo=restaurant" class="btn btn-primary btn-lg">
+          See Owner Dashboard →
+        </a>
+      </div>
+      <div class="owner-showcase-preview fade-in">
+        <div class="dashboard-mockup">
+          <div class="dm-header">
+            <div class="dm-logo">🍽️ La Maison — Owner Panel</div>
+            <div class="dm-user">👤 Admin</div>
+          </div>
+          <div class="dm-stats">
+            <div class="dm-stat"><div class="dm-stat-val">₹28,400</div><div class="dm-stat-lbl">Today's Revenue</div></div>
+            <div class="dm-stat"><div class="dm-stat-val">24</div><div class="dm-stat-lbl">Orders Today</div></div>
+            <div class="dm-stat"><div class="dm-stat-val">₹1,183</div><div class="dm-stat-lbl">Avg Order Value</div></div>
+          </div>
+          <div class="dm-section-title">Recent Orders</div>
+          <div class="dm-order-row">
+            <span class="dm-order-id">#RG-A1B2</span>
+            <span>Table 4 — Truffle Risotto x2</span>
+            <span class="dm-order-status preparing">Preparing</span>
+          </div>
+          <div class="dm-order-row">
+            <span class="dm-order-id">#RG-C3D4</span>
+            <span>Table 7 — Beef Wellington x1</span>
+            <span class="dm-order-status ready">Ready</span>
+          </div>
+          <div class="dm-order-row">
+            <span class="dm-order-id">#RG-E5F6</span>
+            <span>Table 2 — Soufflé x2, Wine x1</span>
+            <span class="dm-order-status completed">Completed</span>
+          </div>
+          <div class="dm-section-title" style="margin-top:16px">Branding</div>
+          <div class="dm-brand-row">
+            <div class="dm-color-dot" style="background:#1a1a2e"></div>
+            <div class="dm-color-dot" style="background:#c9a84c"></div>
+            <div class="dm-color-dot" style="background:#f5f0e8"></div>
+            <span style="font-size:12px;color:#888;margin-left:8px">Brand Colors Active</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ KITCHEN SHOWCASE ══ -->
+<section class="section kitchen-showcase-section">
+  <div class="container">
+    <div class="kitchen-showcase-grid">
+      <div class="kitchen-mockup fade-in">
+        <div class="km-header">
+          <span>🍳 Kitchen Display — La Maison</span>
+          <span class="km-live"><span class="pulse-dot"></span> LIVE</span>
+        </div>
+        <div class="km-columns">
+          <div class="km-col">
+            <div class="km-col-title new">🆕 New Orders</div>
+            <div class="km-ticket">
+              <div class="km-ticket-header">
+                <span class="km-table">Table 4</span>
+                <span class="km-time">2 min</span>
+              </div>
+              <div class="km-item">Truffle Risotto × 2</div>
+              <div class="km-item">Burrata Caprese × 1</div>
+              <div class="km-note">Note: No dairy for seat 2</div>
+              <button class="km-btn accept">Accept Order</button>
+            </div>
+          </div>
+          <div class="km-col">
+            <div class="km-col-title preparing">🔥 Preparing</div>
+            <div class="km-ticket preparing-ticket">
+              <div class="km-ticket-header">
+                <span class="km-table">Table 7</span>
+                <span class="km-time">8 min</span>
+              </div>
+              <div class="km-item">Beef Wellington × 1</div>
+              <div class="km-item">Cacio e Pepe × 2</div>
+              <button class="km-btn ready-btn">Mark Ready</button>
+            </div>
+          </div>
+          <div class="km-col">
+            <div class="km-col-title ready">✅ Ready</div>
+            <div class="km-ticket ready-ticket">
+              <div class="km-ticket-header">
+                <span class="km-table">Table 2</span>
+                <span class="km-time">12 min</span>
+              </div>
+              <div class="km-item">Soufflé × 2</div>
+              <div class="km-item">Château Wine × 1</div>
+              <button class="km-btn complete-btn">Serve & Complete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="kitchen-showcase-text fade-in">
+        <span class="sec-tag">Kitchen Dashboard</span>
+        <h2 class="sec-title">Kitchen Runs Itself.</h2>
+        <p class="sec-sub" style="text-align:left;max-width:100%">
+          Orders flow straight from the customer's phone to the kitchen screen — in real time, every time.
+        </p>
+        <ul class="owner-feat-list">
+          <li><span class="ofl-icon">🔔</span><div><strong>Sound Notifications</strong><small>Kitchen staff never misses an order</small></div></li>
+          <li><span class="ofl-icon">⏱️</span><div><strong>Order Timer</strong><small>See how long each order has been waiting</small></div></li>
+          <li><span class="ofl-icon">📋</span><div><strong>Ticket System</strong><small>New → Preparing → Ready → Done workflow</small></div></li>
+          <li><span class="ofl-icon">🖥️</span><div><strong>Full-Screen Mode</strong><small>Works on any tablet or monitor</small></div></li>
+        </ul>
+        <a href="kitchen.html?demo=restaurant" class="btn btn-primary btn-lg">
+          See Kitchen Display →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRICING ══ -->
+<section class="section pricing-section" id="pricing">
+  <div class="container">
+    <div class="sec-header fade-in">
+      <span class="sec-tag">Pricing</span>
+      <h2 class="sec-title">Simple, Transparent Pricing</h2>
+      <p class="sec-sub">Start free. Upgrade when you're ready. No hidden fees, no per-order commissions.</p>
+    </div>
+    <div class="pricing-grid">
+
+      <div class="pricing-card fade-in">
+        <div class="pricing-plan">Starter</div>
+        <div class="pricing-price">
+          <span class="price-currency">₹</span>
+          <span class="price-amount">0</span>
+          <span class="price-period">/ 14 days</span>
+        </div>
+        <div class="price-sub">Free Trial — No card needed</div>
+        <ul class="pricing-features">
+          <li>✅ Full ordering page</li>
+          <li>✅ Kitchen dashboard</li>
+          <li>✅ Owner dashboard</li>
+          <li>✅ Up to 50 menu items</li>
+          <li>✅ QR code generation</li>
+          <li>✅ Basic branding control</li>
+          <li>❌ Custom domain</li>
+          <li>❌ CSV export</li>
+        </ul>
+        <a href="register.html" class="btn btn-outline btn-block">Start Free Trial</a>
+      </div>
+
+      <div class="pricing-card pricing-featured fade-in">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-plan">Growth</div>
+        <div class="pricing-price">
+          <span class="price-currency">₹</span>
+          <span class="price-amount">1,499</span>
+          <span class="price-period">/ month</span>
+        </div>
+        <div class="price-sub">Billed monthly, cancel anytime</div>
+        <ul class="pricing-features">
+          <li>✅ Everything in Starter</li>
+          <li>✅ Unlimited menu items</li>
+          <li>✅ Full branding control</li>
+          <li>✅ Coupon management</li>
+          <li>✅ CSV export</li>
+          <li>✅ Staff accounts (2)</li>
+          <li>✅ Priority support</li>
+          <li>❌ Custom domain</li>
+        </ul>
+        <a href="register.html" class="btn btn-primary btn-block">Start Free Trial</a>
+      </div>
+
+      <div class="pricing-card fade-in">
+        <div class="pricing-plan">Pro</div>
+        <div class="pricing-price">
+          <span class="price-currency">₹</span>
+          <span class="price-amount">3,499</span>
+          <span class="price-period">/ month</span>
+        </div>
+        <div class="price-sub">Best for multi-branch restaurants</div>
+        <ul class="pricing-features">
+          <li>✅ Everything in Growth</li>
+          <li>✅ Custom domain</li>
+          <li>✅ Multiple dining sections</li>
+          <li>✅ Staff accounts (10)</li>
+          <li>✅ Advanced analytics</li>
+          <li>✅ API access</li>
+          <li>✅ Dedicated support</li>
+          <li>✅ SLA guarantee</li>
+        </ul>
+        <a href="register.html" class="btn btn-outline btn-block">Start Free Trial</a>
+      </div>
+
+    </div>
+    <p class="pricing-note fade-in">
+      💳 Payment integration coming soon via Razorpay. All plans fully functional during trial.
+    </p>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="section faq-section" id="faq">
+  <div class="container container-sm">
+    <div class="sec-header fade-in">
+      <span class="sec-tag">FAQ</span>
+      <h2 class="sec-title">Common Questions</h2>
+    </div>
+    <div class="faq-list" id="faqList">
+
+      <div class="faq-item fade-in">
+        <button class="faq-q" aria-expanded="false">
+          Do I need to know coding to use RestroGo?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">
+          Not at all. Everything is managed from the owner dashboard — upload your logo, pick colors, add menu items, and you're live. No code, no developers needed.
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <button class="faq-q" aria-expanded="false">
+          How does the QR code ordering work?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">
+          Each table gets a unique QR code from your owner dashboard. When a customer scans it, they land on your branded ordering page with your table number pre-filled. They order, and it hits your kitchen instantly.
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <button class="faq-q" aria-expanded="false">
+          Is my data separated from other restaurants?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">
+          Yes, completely. RestroGo uses a strict multi-tenant architecture. Your orders, menu, and customer data are stored under your unique tenant ID and are never accessible to other restaurants on the platform.
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <button class="faq-q" aria-expanded="false">
+          Can I change my restaurant's branding later?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">
+          Anytime. Go to the owner dashboard → Branding section, upload a new logo or banner, pick new colors, and save. Your customer-facing ordering page updates live, instantly.
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <button class="faq-q" aria-expanded="false">
+          What types of restaurants does RestroGo support?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">
+          Currently 5 business types: Fine Dining Restaurant, Modern Cafe, Premium Bakery, Indian Sweets Shop, and Fast Food / Cloud Kitchen. Each comes with specialized features and its own premium theme.
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <button class="faq-q" aria-expanded="false">
+          Is there a commission on orders?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">
+          Zero commission. RestroGo is a flat monthly subscription — we never take a cut of your order value. What you earn is entirely yours.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="section cta-section">
+  <div class="container">
+    <div class="cta-box fade-in">
+      <h2>Ready to take your restaurant online?</h2>
+      <p>Set up your ordering page in under 10 minutes. Free 14-day trial, no credit card.</p>
+      <div class="cta-btns">
+        <a href="register.html" class="btn btn-primary btn-lg">Start Free Trial →</a>
+        <a href="#demos" class="btn btn-ghost btn-lg">See Demos First</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="land-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="land-logo" style="margin-bottom:12px">
+          <span class="logo-icon">🍽️</span>
+          <span class="logo-text">RestroGo</span>
+        </div>
+        <p>Premium restaurant SaaS. One platform, every food business.</p>
+        <div class="footer-socials">
+          <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.167 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836a9.59 9.59 0 012.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#demos">Live Demos</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Demos</h4>
+        <ul>
+          <li><a href="menu.html?demo=restaurant">Fine Dining</a></li>
+          <li><a href="menu.html?demo=cafe">Modern Cafe</a></li>
+          <li><a href="menu.html?demo=bakery">Premium Bakery</a></li>
+          <li><a href="menu.html?demo=sweets">Indian Sweets</a></li>
+          <li><a href="menu.html?demo=fastfood">Fast Food</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="register.html">Register</a></li>
+          <li><a href="login.html">Owner Login</a></li>
+          <li><a href="admin/index.html">Admin Panel</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 RestroGo. Built with Firebase & ❤️</p>
+      <p>Multi-tenant SaaS · Secure · Scalable</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast Container -->
+<div id="toast-container"></div>
+
+<!-- Scripts -->
+<script src="assets/js/utils.js"></script>
+<script src="assets/js/landing.js"></script>
+</body>
+</html>

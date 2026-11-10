@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Owner Login — RestroGo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/base.css"/>
+  <style>
+    body { background:#07070f; display:flex; align-items:center; justify-content:center; min-height:100vh; padding:20px; }
+    .auth-wrap { width:100%; max-width:420px; }
+    .auth-logo {
+      text-align:center; margin-bottom:32px;
+      display:flex; align-items:center; justify-content:center; gap:10px;
+    }
+    .auth-logo span:first-child { font-size:32px; }
+    .auth-logo span:last-child  { font-size:22px; font-weight:800; color:#f0f0fa; }
+    .auth-card {
+      background:#111120;
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:20px;
+      padding:36px 32px;
+    }
+    .auth-card h1 { font-size:24px; font-weight:800; margin-bottom:6px; }
+    .auth-card p  { font-size:14px; color:#7878a0; margin-bottom:28px; }
+    .auth-divider { text-align:center; color:#7878a0; font-size:13px; margin:18px 0; position:relative; }
+    .auth-divider::before,
+    .auth-divider::after {
+      content:""; position:absolute; top:50%; width:42%; height:1px;
+      background:rgba(255,255,255,0.08);
+    }
+    .auth-divider::before { left:0; }
+    .auth-divider::after  { right:0; }
+    .auth-footer { text-align:center; margin-top:20px; font-size:14px; color:#7878a0; }
+    .auth-footer a { color:#a5a0ff; font-weight:600; }
+    .form-group { margin-bottom:16px; }
+    .form-group label { display:block; font-size:13px; font-weight:600; color:#7878a0; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:7px; }
+    .form-input {
+      width:100%; padding:12px 16px; border-radius:10px;
+      background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08);
+      color:#f0f0fa; font-size:15px; outline:none; transition:border-color 0.2s;
+    }
+    .form-input:focus { border-color:#6c63ff; }
+    .form-input.error { border-color:#ef4444; }
+    .form-error { font-size:12px; color:#ef4444; min-height:16px; margin-top:4px; }
+    .btn-auth {
+      width:100%; padding:14px; border-radius:50px; border:none;
+      background:#6c63ff; color:#fff; font-size:16px; font-weight:700;
+      cursor:pointer; transition:0.2s; margin-top:4px;
+    }
+    .btn-auth:hover { background:#5a52d5; transform:translateY(-1px); }
+    .btn-auth:disabled { opacity:0.5; pointer-events:none; }
+    .demo-logins {
+      background:rgba(108,99,255,0.08); border:1px solid rgba(108,99,255,0.2);
+      border-radius:12px; padding:14px 16px; margin-bottom:20px; font-size:13px;
+    }
+    .demo-logins strong { color:#a5a0ff; display:block; margin-bottom:8px; }
+    .demo-login-item { color:#7878a0; margin-bottom:4px; }
+    .demo-login-item span { color:#f0f0fa; font-family:monospace; }
+    .forgot-link { font-size:13px; color:#7878a0; text-align:right; display:block; margin-top:-8px; margin-bottom:16px; }
+    .forgot-link:hover { color:#a5a0ff; }
+  </style>
+</head>
+<body>
+
+<div class="auth-wrap">
+  <div class="auth-logo">
+    <span>🍽️</span>
+    <span>RestroGo</span>
+  </div>
+
+  <div class="auth-card">
+    <h1>Welcome back</h1>
+    <p>Sign in to your owner dashboard</p>
+
+    <!-- Demo credentials hint -->
+    <div class="demo-logins">
+      <strong>🎭 Demo Access</strong>
+      <div class="demo-login-item">Email: <span>demo@restrogodemo.com</span></div>
+      <div class="demo-login-item">Password: <span>demo1234</span></div>
+    </div>
+
+    <form id="loginForm" novalidate>
+      <div class="form-group">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" class="form-input" placeholder="you@restaurant.com" autocomplete="email"/>
+        <div class="form-error" id="errLoginEmail"></div>
+      </div>
+      <div class="form-group">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" class="form-input" placeholder="Your password" autocomplete="current-password"/>
+        <div class="form-error" id="errLoginPassword"></div>
+      </div>
+      <a href="#" class="forgot-link" onclick="showForgot()">Forgot password?</a>
+      <div class="form-error" id="errLoginGlobal" style="margin-bottom:12px;font-size:14px"></div>
+      <button type="submit" class="btn-auth" id="loginBtn">Sign In →</button>
+    </form>
+
+    <div class="auth-divider">or continue as demo</div>
+
+    <button class="btn-auth" style="background:#1e1e2e;border:1px solid rgba(255,255,255,0.1)" onclick="demoLogin()">
+      🎭 Enter Demo Dashboard
+    </button>
+  </div>
+
+  <div class="auth-footer">
+    Don't have an account? <a href="register.html">Start Free Trial →</a>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="assets/js/utils.js"></script>
+<script src="core/tenant-engine.js"></script>
+<script src="core/app-config.js"></script>
+<script>
+  /* ── Firebase init guard ── */
+
+  const form     = document.getElementById("loginForm");
+  const loginBtn = document.getElementById("loginBtn");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    clearErrors();
+
+    const email    = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+
+    if (!email)    { showError("errLoginEmail",    "Email is required"); return; }
+    if (!password) { showError("errLoginPassword", "Password is required"); return; }
+
+    loginBtn.textContent = "Signing in...";
+    loginBtn.disabled    = true;
+
+    try {
+      const cred = await firebase.auth().signInWithEmailAndPassword(email, password);
+      const uid  = cred.user.uid;
+
+      // Read which tenant this user belongs to
+      const db  = firebase.database();
+      const snap = await db.ref(`userAccess/${uid}`).get();
+      const access = snap.val();
+
+      if (!access) {
+        showError("errLoginGlobal", "No restaurant found for this account. Contact support.");
+        loginBtn.textContent = "Sign In →";
+        loginBtn.disabled    = false;
+        return;
+      }
+
+      const tenantId = Object.keys(access)[0];
+      window.location.href = `owner.html?restaurant=${tenantId}`;
+
+    } catch (err) {
+      const msgs = {
+        "auth/user-not-found":      "No account found with this email.",
+        "auth/wrong-password":      "Incorrect password.",
+        "auth/too-many-requests":   "Too many attempts. Please wait and try again.",
+        "auth/invalid-email":       "Invalid email address."
+      };
+      showError("errLoginGlobal", msgs[err.code] || "Login failed. Please try again.");
+      loginBtn.textContent = "Sign In →";
+      loginBtn.disabled    = false;
+    }
+  });
+
+  function demoLogin() {
+    window.location.href = "owner.html?demo=restaurant";
+  }
+
+  function showForgot() {
+    const email = document.getElementById("loginEmail").value.trim();
+    if (!email) { showError("errLoginEmail", "Enter your email first"); return; }
+    firebase.auth().sendPasswordResetEmail(email)
+      .then(() => Toast.success("Reset email sent! Check your inbox."))
+      .catch(() => Toast.error("Could not send reset email"));
+  }
+
+  function showError(id, msg) { const el = document.getElementById(id); if(el) el.textContent = msg; }
+  function clearErrors() { ["errLoginEmail","errLoginPassword","errLoginGlobal"].forEach(id => showError(id,"")); }
+</script>
+</body>
+</html>

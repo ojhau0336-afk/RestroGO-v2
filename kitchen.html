@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="theme-color" content="#050508"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <title>Kitchen Display — RestroGo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="stylesheet" href="assets/css/base.css"/>
+  <link rel="stylesheet" href="assets/css/kitchen.css"/>
+</head>
+<body class="kitchen-body">
+
+<!-- ── KITCHEN NAV ── -->
+<header class="kitchen-header" id="kitchenHeader">
+  <div class="kh-left">
+    <span id="kitchenLogoIcon">🍳</span>
+    <div>
+      <div class="kh-restaurant" id="kitchenRestaurantName">Kitchen Display</div>
+      <div class="kh-sub">Live Order Stream</div>
+    </div>
+  </div>
+  <div class="kh-center">
+    <div class="kh-live"><span class="pulse-dot"></span> LIVE</div>
+    <div class="kh-time" id="kitchenClock">--:--:--</div>
+    <div class="kh-date" id="kitchenDate"></div>
+  </div>
+  <div class="kh-right">
+    <button class="kh-btn" id="soundToggle" title="Toggle sound notifications" onclick="KitchenApp.toggleSound()">🔔 Sound ON</button>
+    <button class="kh-btn" id="fullscreenBtn" title="Toggle fullscreen" onclick="KitchenApp.toggleFullscreen()">⛶ Fullscreen</button>
+  </div>
+</header>
+
+<!-- ── STATS BAR ── -->
+<div class="kitchen-stats-bar">
+  <div class="ks-item">
+    <span class="ks-val" id="kStatNew">0</span>
+    <span class="ks-lbl">New</span>
+  </div>
+  <div class="ks-item">
+    <span class="ks-val" id="kStatPreparing">0</span>
+    <span class="ks-lbl">Preparing</span>
+  </div>
+  <div class="ks-item">
+    <span class="ks-val" id="kStatReady">0</span>
+    <span class="ks-lbl">Ready</span>
+  </div>
+  <div class="ks-item">
+    <span class="ks-val" id="kStatCompleted">0</span>
+    <span class="ks-lbl">Completed Today</span>
+  </div>
+</div>
+
+<!-- ── KANBAN BOARD ── -->
+<main class="kitchen-board" id="kitchenBoard">
+
+  <!-- NEW ORDERS -->
+  <div class="k-column" id="col-new">
+    <div class="k-col-header new">
+      <span class="k-col-title">🆕 New Orders</span>
+      <span class="k-col-count" id="count-new">0</span>
+    </div>
+    <div class="k-tickets" id="tickets-new">
+      <div class="k-empty">Waiting for orders...</div>
+    </div>
+  </div>
+
+  <!-- PREPARING -->
+  <div class="k-column" id="col-preparing">
+    <div class="k-col-header preparing">
+      <span class="k-col-title">🔥 Preparing</span>
+      <span class="k-col-count" id="count-preparing">0</span>
+    </div>
+    <div class="k-tickets" id="tickets-preparing">
+      <div class="k-empty">No orders preparing</div>
+    </div>
+  </div>
+
+  <!-- READY -->
+  <div class="k-column" id="col-ready">
+    <div class="k-col-header ready">
+      <span class="k-col-title">✅ Ready to Serve</span>
+      <span class="k-col-count" id="count-ready">0</span>
+    </div>
+    <div class="k-tickets" id="tickets-ready">
+      <div class="k-empty">No orders ready</div>
+    </div>
+  </div>
+
+  <!-- COMPLETED -->
+  <div class="k-column" id="col-completed">
+    <div class="k-col-header completed">
+      <span class="k-col-title">🏁 Completed</span>
+      <span class="k-col-count" id="count-completed">0</span>
+    </div>
+    <div class="k-tickets" id="tickets-completed">
+      <div class="k-empty">No completed orders yet</div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ── DEMO ORDERS INJECTOR (for demo mode only) ── -->
+<div class="kitchen-demo-bar" id="kitchenDemoBar" style="display:none">
+  <span>Demo Mode — </span>
+  <button class="kh-btn" onclick="KitchenApp.injectDemoOrder()">+ Simulate New Order</button>
+  <a href="menu.html?demo=restaurant" class="kh-btn">Open Menu →</a>
+</div>
+
+<!-- Toast -->
+<div id="toast-container"></div>
+
+<!-- Audio notification (base64 beep, no external dependency) -->
+<audio id="orderAlert" preload="auto">
+  <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YWoGAACBhYqFbF1ianaLqLKtm4p9dWtia3CCkaWxrqKUiHx1bmpsc3+PnqyvqqKYjIB5c29ucXd/iJKboKKioKCdmZaSj42MjIyOkJOWmpydnZ2dmZaSkI6Ni4yNjpCSlJaYmZqampqZl5SSj42MjI2Oj5GUlpiZmpubm5qXlJKPjYyMjI6QkpSXmZqbm5ubmpeSj4yMjI2Oj5GUlpiZmpubm5uZlZKPjYyLjI2Oj5KUl5mam5ubm5qXk5CLjIuMjY6QkpSXmZqbm5uamJSTj4yLi4yNjo+SlJaYmpubm5uZlpOMi4uMjI2Pj5KUlpianJubm5qXlJGOi4qLjI2Oj5KUlpianJubm5qYlpKOi4qKi4yOj5KUlpianJybmpqYlZKOi4qKi4yNj5GUlpiamZqampmXlZGNiomJiouMjo+SlJaYmZqam5qYlpKNiYiIiYqLjY+RlJWXmJmampmYlpKNiYiIiYqLjI6QkpSWl5iYmZmYl5WRjIiHh4iJioyOkJKUlpeYmJmZmJeVkYyIh4eIiYqMjo+RkpSWl5iYmZiXlZGMiIeHiImKjI6Pk5SVlpeYmJiYl5WRjIiHh4iJi" type="audio/wav"/>
+</audio>
+
+<!-- Firebase SDK (compat) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<!-- ✅ Edit Firebase config in core/app-config.js only -->
+<script src="core/app-config.js"></script>
+
+<!-- RestroGo Core -->
+<script src="assets/js/utils.js"></script>
+<script src="core/tenant-engine.js"></script>
+<script src="assets/js/kitchen.js"></script>
+</body>
+</html>
