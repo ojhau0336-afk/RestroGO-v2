@@ -10,15 +10,15 @@
  */
 
 (function () {
- const FIREBASE_CONFIG = {
-    apiKey:            "YOUR_API_KEY",
-    authDomain:        "YOUR_PROJECT_ID.firebaseapp.com",
-    databaseURL:       "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
-    projectId:         "YOUR_PROJECT_ID",
-    storageBucket:     "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId:             "YOUR_APP_ID"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyDiSWNz6HpGEAlPqUPl8nx1G2DMlz1_8b0",
+  authDomain: "restrogov2.firebaseapp.com",
+  projectId: "restrogov2",
+  storageBucket: "restrogov2.firebasestorage.app",
+  messagingSenderId: "411405416897",
+  appId: "1:411405416897:web:5733716ebdd3a1a91d1740",
+  measurementId: "G-PZD1M1C1Z7"
+};
 
   // Safe init — won't crash if already initialized
   if (typeof firebase !== "undefined" && !firebase.apps.length) {
