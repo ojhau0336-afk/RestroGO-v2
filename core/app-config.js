@@ -10,7 +10,7 @@
  */
 
 (function () {
-  const FIREBASE_CONFIG = {
+ const FIREBASE_CONFIG = {
     apiKey:            "YOUR_API_KEY",
     authDomain:        "YOUR_PROJECT_ID.firebaseapp.com",
     databaseURL:       "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
