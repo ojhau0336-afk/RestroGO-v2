@@ -53,12 +53,12 @@ const KitchenApp = (() => {
     // Update timers every 30s
     tickerInterval = setInterval(updateTimers, 30000);
 
-    // Demo mode
-    if (cfg._isDemo) {
-      document.getElementById("kitchenDemoBar").style.display = "flex";
-      loadDemoOrders();
-      return;
-    }
+    // Demo mode — use live Firebase orders
+if (cfg._isDemo) {
+  document.getElementById("kitchenDemoBar").style.display = "flex";
+  subscribeToOrders();
+  return;
+}
 
     // Firebase listener
     subscribeToOrders();
