@@ -22,7 +22,7 @@ const firebaseConfig = {
 
   // Safe init — won't crash if already initialized
   if (typeof firebase !== "undefined" && !firebase.apps.length) {
-    firebase.initializeApp(FIREBASE_CONFIG);
+    firebase.initializeApp(firebaseConfig);
     console.log("[RestroGo] Firebase initialized ✅");
   }
 
@@ -31,6 +31,6 @@ const firebaseConfig = {
     appVersion:    "2.0.0",
     basePath:      "/restrogov2",  // Change to "/" if deploying at root
     githubPages:   true,           // Set false if using custom domain
-    projectId:     FIREBASE_CONFIG.projectId
+    projectId:     firebaseConfig.projectId
   };
 })();
